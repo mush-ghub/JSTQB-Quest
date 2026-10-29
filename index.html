@@ -6,26 +6,33 @@
 <title>QAクエスト JSTQB FL</title>
 <style>
 :root{
-  --bg:#f7f4ee; --paper:#fffdf8; --ink:#22201c; --muted:#6b655a; --line:#e3dccd;
-  --accent:#7a4b12; --accent-soft:#f3e7d3; --gold:#b8862b;
-  --ok:#1f7a4d; --ok-bg:#e3f4ea; --ng:#b3261e; --ng-bg:#fbe6e4;
-  --code:#f1ece2; --quote:#efe7d6;
+  --bg:#f3f5fa; --paper:#ffffff; --ink:#1a2133; --muted:#5d667a; --line:#e0e5ef;
+  --accent:#3b5bdb; --accent-soft:#e9eeff; --gold:#e0a91b; --gold-ink:#1a1405;
+  --ok:#1b8a55; --ok-bg:#e4f6ec; --ng:#d03b3b; --ng-bg:#fdeceb;
+  --code:#eef1f7; --quote:#f4f6fc; --side:#ffffff; --bar:#1a2133; --bar-ink:#ffffff;
 }
 @media (prefers-color-scheme: dark){
-  :root{
-    --bg:#16140f; --paper:#1f1c16; --ink:#ece6d9; --muted:#a59d8d; --line:#3a352b;
-    --accent:#e0b267; --accent-soft:#33291b; --gold:#d6a84f;
-    --ok:#6fd3a0; --ok-bg:#173326; --ng:#ff8a80; --ng-bg:#3a1b19;
-    --code:#2a261e; --quote:#29241b;
+  :root:not([data-theme="light"]){
+    --bg:#0c1120; --paper:#141b2d; --ink:#e7ebf4; --muted:#98a2b8; --line:#253049;
+  --accent:#8aa4ff; --accent-soft:#1d2849; --gold:#f2c14e; --gold-ink:#1a1405;
+  --ok:#4fd28a; --ok-bg:#11301f; --ng:#ff7474; --ng-bg:#381a22;
+  --code:#1a2237; --quote:#182035; --side:#10172a; --bar:#0a0f1c; --bar-ink:#ffffff;
   }
+}
+:root[data-theme="dark"]{
+  --bg:#0c1120; --paper:#141b2d; --ink:#e7ebf4; --muted:#98a2b8; --line:#253049;
+  --accent:#8aa4ff; --accent-soft:#1d2849; --gold:#f2c14e; --gold-ink:#1a1405;
+  --ok:#4fd28a; --ok-bg:#11301f; --ng:#ff7474; --ng-bg:#381a22;
+  --code:#1a2237; --quote:#182035; --side:#10172a; --bar:#0a0f1c; --bar-ink:#ffffff;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
 body{margin:0;background:var(--bg);color:var(--ink);
   font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI","Meiryo",system-ui,sans-serif;
   line-height:1.85;font-size:16px;-webkit-text-size-adjust:100%}
-.layout{display:grid;grid-template-columns:280px minmax(0,1fr);max-width:1240px;margin:0 auto}
-nav.toc{position:sticky;top:0;height:100vh;overflow:auto;padding:28px 18px 40px;border-right:1px solid var(--line)}
+.layout{display:grid;grid-template-columns:288px minmax(0,1fr);min-height:100vh}
+nav.toc{position:sticky;top:0;height:100vh;overflow:auto;padding:28px 18px 40px;border-right:1px solid var(--line);background:var(--side)}
+.theme-btn{margin:0 0 18px;font:inherit;font-size:12.5px;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
 nav.toc .brand{font-weight:800;font-size:15px;letter-spacing:.04em;color:var(--accent);margin:0 0 4px}
 nav.toc .sub{font-size:12px;color:var(--muted);margin:0 0 18px}
 nav.toc ul{list-style:none;margin:0;padding:0}
@@ -33,14 +40,16 @@ nav.toc li a{display:block;padding:6px 10px;border-radius:8px;color:var(--ink);t
 nav.toc li a:hover{background:var(--accent-soft)}
 nav.toc li.exam a{color:var(--accent)}
 nav.toc .toc-sep{margin:16px 10px 6px;font-size:11.5px;font-weight:700;color:var(--muted);letter-spacing:.06em}
-main{padding:32px 48px 120px;min-width:0}
+main{padding:36px 48px 120px;min-width:0}
+main>*{max-width:1040px;margin-left:0;margin-right:auto}
 header.hero{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:36px 36px 28px;margin-bottom:28px;position:relative;overflow:hidden}
-header.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,var(--accent-soft),transparent 70%)}
+header.hero{background:linear-gradient(135deg,var(--paper) 55%,var(--accent-soft))}
+header.hero::after{content:"";position:absolute;right:-50px;top:-50px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--gold) 28%,transparent),transparent 70%)}
 header.hero .eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--gold)}
 header.hero h1{font-size:30px;line-height:1.35;margin:6px 0 10px}
 header.hero p{margin:0;color:var(--muted)}
 header.hero .stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
-header.hero .stats span{background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600}
+header.hero .stats span{background:var(--accent-soft);color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600}
 section.sec{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:32px 36px;margin-bottom:28px}
 section.sec h2{font-size:24px;line-height:1.4;margin:0 0 18px;padding-bottom:12px;border-bottom:2px solid var(--accent-soft)}
 section.exam h2{color:var(--accent)}
@@ -59,9 +68,9 @@ th{background:var(--accent-soft)}
 hr{border:none;border-top:1px dashed var(--line);margin:28px 0}
 .formula{font-family:ui-monospace,Menlo,Consolas,monospace;background:var(--code);padding:12px 16px;border-radius:10px;display:inline-block;margin:6px 0}
 /* quiz */
-.score{position:sticky;top:10px;z-index:5;display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--ink);color:var(--paper);border-radius:12px;padding:10px 16px;margin:4px 0 18px;font-size:14px;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+.score{position:sticky;top:10px;z-index:5;display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--bar);color:var(--bar-ink);border-radius:12px;padding:10px 16px;margin:4px 0 18px;font-size:14px;box-shadow:0 6px 18px rgba(0,0,0,.12)}
 .score b{font-size:18px}
-.score .submit,.submit-bar .submit{margin-left:auto;background:var(--gold);color:#1b1408;border:none;border-radius:8px;padding:6px 16px;font:inherit;font-weight:700;font-size:14px;cursor:pointer}
+.score .submit,.submit-bar .submit{margin-left:auto;background:var(--gold);color:var(--gold-ink);border:none;border-radius:8px;padding:6px 16px;font:inherit;font-weight:700;font-size:14px;cursor:pointer}
 .score .reset{margin-left:auto;margin-left:auto;background:transparent;color:inherit;border:1px solid currentColor;border-radius:8px;padding:3px 10px;font:inherit;font-size:12.5px;cursor:pointer;opacity:.8}
 .qchap{margin-top:30px;padding:6px 12px;background:var(--accent-soft);border-radius:8px;display:inline-block}
 .q{border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:14px 0}
@@ -112,10 +121,10 @@ details.key summary{cursor:pointer;font-weight:700;color:var(--accent)}
 .lg.ans{background:rgba(255,255,255,.4)} .lg.flg{background:var(--gold);border-radius:50%}
 .start{border:2px solid var(--gold);border-radius:14px;padding:18px 20px;margin:6px 0 18px;background:var(--accent-soft)}
 .start p{margin:0 0 12px}
-.begin{background:var(--gold);color:#1b1408;border:none;border-radius:10px;padding:10px 26px;font:inherit;font-weight:800;font-size:16px;cursor:pointer}
+.begin{background:var(--gold);color:var(--gold-ink);border:none;border-radius:10px;padding:10px 26px;font:inherit;font-weight:800;font-size:16px;cursor:pointer}
 .q{position:relative}
 .flag{position:absolute;top:12px;right:12px;font:inherit;font-size:12px;padding:2px 10px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
-.flag.on{background:var(--gold);border-color:var(--gold);color:#1b1408;font-weight:700}
+.flag.on{background:var(--gold);border-color:var(--gold);color:var(--gold-ink);font-weight:700}
 .q .stem{padding-right:72px}
 .q.done .flag{display:none}
 .menu-btn{display:none}
@@ -144,6 +153,7 @@ details.key summary{cursor:pointer;font-weight:700;color:var(--accent)}
 <nav class="toc" aria-label="目次">
   <p class="brand">QAクエスト</p>
   <p class="sub">JSTQB Foundation Level（v4.0）</p>
+  <button class="theme-btn" type="button">表示：自動</button>
   <ul><li class="story"><a href="#s1">プロローグ　リリース前夜の召喚</a></li><li class="story"><a href="#s2">第1章　始まりの村  ～テストとは何か、そして7つの石碑～</a></li><li class="story"><a href="#s3">第2章　王国縦断の旅  ～SDLCとテスト活動～</a></li><li class="story"><a href="#s4">第3章　賢者の塔  ～静的テストと4人の賢者～</a></li><li class="story"><a href="#s5">第4章　スキル道場  ～テスト技法を極めよ～</a></li><li class="story"><a href="#s6">第5章　魔竜リスクドラゴン討伐戦  ～テストマネジメント～</a></li><li class="story"><a href="#s7">第6章　ドワーフの工房  ～魔法機械とテスト支援ツール～</a></li><li class="story"><a href="#s8">エピローグ　勇者の帰還</a></li><li class="exam"><a href="#s9">最終試練　JSTQB FL模擬試験（20問）</a></li><li class="toc-sep">高難易度模試（40問×5回）</li><li class="exam"><a href="#s10">高難易度模試 第1回  ～王都の試練～</a></li><li class="exam"><a href="#s11">高難易度模試 第2回  ～機械仕掛けの砦～</a></li><li class="exam"><a href="#s12">高難易度模試 第3回  ～海底神殿の謎～</a></li><li class="exam"><a href="#s13">高難易度模試 第4回  ～天空回廊の罠～</a></li><li class="exam"><a href="#s14">高難易度模試 第5回  ～魔王城・最終決戦～</a></li></ul>
 </nav>
 <main>
@@ -2040,6 +2050,10 @@ document.querySelectorAll('section.exam').forEach(function(sec){
   sec.querySelectorAll('.reset').forEach(function(x){x.addEventListener('click',reset);});
   refresh();
 });
+(function(){var r=document.documentElement,b=document.querySelector('.theme-btn'),L={auto:'自動',light:'ライト',dark:'ダーク'},o=['auto','light','dark'],m='auto';
+try{m=localStorage.getItem('qaq-theme')||'auto';}catch(e){}
+function ap(){if(m==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',m);b.textContent='表示：'+L[m];}
+b.addEventListener('click',function(){m=o[(o.indexOf(m)+1)%3];try{localStorage.setItem('qaq-theme',m);}catch(e){}ap();});ap();})();
 var nav=document.querySelector('nav.toc'),mb=document.querySelector('.menu-btn');
 mb.addEventListener('click',function(){nav.classList.toggle('open');});
 nav.addEventListener('click',function(e){if(e.target.tagName==='A')nav.classList.remove('open');});
